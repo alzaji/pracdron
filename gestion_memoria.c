@@ -24,6 +24,19 @@ void crear(T_Manejador* manejador) {
 /* Destruye la estructura utilizada (libera todos los nodos de la lista. El parámetro manejador debe terminar apuntando a NULL */
 void destruir(T_Manejador* manejador) {
 
+	T_Manejador ptr,aux;
+	ptr = *manejador;
+	aux = NULL;
+
+	while(ptr !=NULL){
+
+		aux = ptr -> sig;
+		free(ptr);
+		ptr = aux;
+	}
+	*manejador = NULL;
+
+
 }
 
 /* Devuelve en “dir” la dirección de memoria “simulada” (unsigned) donde comienza el trozo de memoria continua de tamaño “tam” solicitada.
@@ -50,7 +63,6 @@ void obtener(T_Manejador *manejador, unsigned tam, unsigned* dir, unsigned* ok) 
 
 				*ok = 1;
 				*dir = ptr->inicio;
-				free(ptr);
 
 				if (ant == NULL) {
 
@@ -94,6 +106,39 @@ fflush(stdout);
  * Se puede suponer que se trata de un trozo obtenido previamente.
  */
 void devolver(T_Manejador *manejador, unsigned tam, unsigned dir) {
+
+	T_Manejador aux = (T_Manejador)malloc(sizeof(struct T_Nodo));
+	aux -> inicio = dir;
+	aux -> fin = dir + tam - 1;
+	aux -> sig = NULL;
+
+	T_Manejador ant, act;
+	ant = NULL;
+	act = *manejador;
+
+	while (act !=NULL){
+
+		ant = act;
+		act = act -> sig;
+
+	}
+	if (act == NULL){
+
+		if(aux -> fin - aux -> inicio + 1 > ant -> fin - ant -> inicio + 1){
+
+			aux -> sig = act;
+			ant -> sig = aux;
+
+		}
+
+		aux -> sig = *manejador;
+		*manejador = aux;
+	}
+	else{
+
+		aux -> sig = act;
+		ant -> sig = aux;
+	}
 
 }
 
