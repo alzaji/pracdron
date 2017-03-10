@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : Practica1Dron.c
- Author      : Alberto Zamora Jiménez 2º GINF "A"
+ Author      : Alberto Zamora JimÃ©nez 2Âº GINF "A"
  Version     :
  Copyright   : Your copyright notice
  Description : PSC - Practica 1 Dron
